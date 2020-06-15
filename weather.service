@@ -1,0 +1,9 @@
+[Unit]
+Description=Gather Weather Data
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /home/pi/PiDashboard/wrapper.sh
+
+[Install]
+WantedBy=multi-user.target

@@ -7,7 +7,6 @@ import sys
 import time
 import logging
 import requests
-import time
 import pytemperature
 import click
 

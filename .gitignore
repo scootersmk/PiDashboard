@@ -2,4 +2,5 @@ venv*
 *.log
 *__pycache__*
 .coverage
+secret.sh
 
