@@ -94,6 +94,11 @@ def parse_data(result):
     return w
 
 
+def build_url(location_id, api_key, units):
+    base_url = "http://api.openweathermap.org/data/2.5/weather?"
+    return f"{base_url}id={location_id}&APPID={api_key}&units={units}"
+
+
 @click.command()
 @click.option(
     "--mode",
@@ -133,9 +138,7 @@ def main(logfile, location_id, units, api_key, interval, mode):
         level=logging.INFO,
     )
 
-    base_url = "http://api.openweathermap.org/data/2.5/weather?"
-    url = f"{base_url}id={location_id}&APPID={api_key}&units={units}"
-    print(url)
+    url = build_url(location_id, api_key, units)
 
     while True:
         result = get_data(url)

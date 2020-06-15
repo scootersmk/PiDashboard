@@ -142,6 +142,15 @@ class TestMisc(unittest.TestCase):
         requests_get_func.return_value = SimpleResponse()
         assert "weather" in get_data("dummy_url")
 
+    def test_build_url(self):
+        location_id = "1234"
+        api_key = "abc123"
+        units = "imperial"
+        assert (
+            build_url(location_id, api_key, units)
+            == "http://api.openweathermap.org/data/2.5/weather?id=1234&APPID=abc123&units=imperial"
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
