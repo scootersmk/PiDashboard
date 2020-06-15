@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-# https://openweathermap.org/api
-# {'coord': {'lon': -122.42, 'lat': 37.77}, 'weather': [{'id': 801, 'main': 'Clouds', 'description': 'few clouds', 'icon': '02d'}], 'base': 'stations', 'main': {'temp': 71.91, 'feels_like': 57.27, 'temp_min': 64, 'temp_max': 75.99, 'pressure': 1013, 'humidity': 43}, 'visibility': 16093, 'wind': {'speed': 25.28, 'deg': 290}, 'clouds': {'all': 20}, 'dt': 1590366761, 'sys': {'type': 1, 'id': 5817, 'country': 'US', 'sunrise': 1590324788, 'sunset': 1590376822}, 'timezone': -25200, 'id': 5391959, 'name': 'San Francisco', 'cod': 200}
 
 import sys
 import time
@@ -12,7 +10,9 @@ import click
 
 
 def wind_direction(degree):
-    if degree < 11.25 or degree >= 348.75:
+    if degree < 11.25 and degree >= 0:
+        return "N"
+    if degree <= 360 and degree >= 348.75:
         return "N"
     if degree < 33.75:
         return "NNE"
@@ -44,6 +44,7 @@ def wind_direction(degree):
         return "NW"
     if degree < 348.75:
         return "NNW"
+    raise Exception(f"Invalid wind direction: {degree}")
 
 
 def get_data(url):
@@ -134,6 +135,7 @@ def main(logfile, location_id, units, api_key, interval, mode):
 
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
     url = f"{base_url}id={location_id}&APPID={api_key}&units={units}"
+    print(url)
 
     while True:
         result = get_data(url)
